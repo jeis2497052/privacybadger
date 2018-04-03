@@ -52,6 +52,14 @@ $(window).on("load", function () {
     var settings = badger.storage.getBadgerStorageObject("settings_map");
     settings.setItem("seenComic", true);
   }
+
+  $.getJSON("/data/seed.json", function(seed) {
+    var badger = chrome.extension.getBackgroundPage().badger;
+    actionMap = badger.storage.getBadgerStorageObject("action_map");
+    actionMap.merge(seed["action_map"]); 
+    snitchMap = badger.storage.getBadgerStorageObject("snitch_map");
+    snitchMap.merge(seed["snitch_map"]); 
+  });
 });
 
 })(jQuery);
